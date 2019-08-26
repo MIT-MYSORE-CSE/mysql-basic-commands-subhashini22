@@ -1,0 +1,334 @@
+MariaDB [(none)]> use practice
+Database changed
+MariaDB [practice]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [practice]> create table student(usn varchar(10),name varchar(20),sem integer,sec char(1));
+Query OK, 0 rows affected (0.325 sec)
+
+MariaDB [practice]> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> desc student;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| usn   | varchar(10) | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| sem   | int(11)     | YES  |     | NULL    |       |
+| sec   | char(1)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.010 sec)
+
+MariaDB [practice]> insert into student values('4MH17CS113','VARSHINI',5,'C');
+Query OK, 1 row affected (0.138 sec)
+
+MariaDB [practice]> insert into student values('4MH17CS115','VIDYASHREE',5,'A');
+Query OK, 1 row affected (0.029 sec)
+
+MariaDB [practice]> insert into student values('4MH17CS093','SONALI',5,'B');
+Query OK, 1 row affected (0.123 sec)
+
+MariaDB [practice]> insert into student values('4MH17CS118','YUKTHA',5,'B');
+Query OK, 1 row affected (0.153 sec)
+
+MariaDB [practice]> insert into student values('4MH17CS119','YUKTHI',5,'C');
+Query OK, 1 row affected (0.135 sec)
+
+MariaDB [practice]> select * from student;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS113 | VARSHINI   |    5 | C    |
+| 4MH17CS115 | VIDYASHREE |    5 | A    |
+| 4MH17CS093 | SONALI     |    5 | B    |
+| 4MH17CS118 | YUKTHA     |    5 | B    |
+| 4MH17CS119 | YUKTHI     |    5 | C    |
++------------+------------+------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select name from student;
++------------+
+| name       |
++------------+
+| VARSHINI   |
+| VIDYASHREE |
+| SONALI     |
+| YUKTHA     |
+| YUKTHI     |
++------------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select usn,
+    -> name from student
+    -> ;
++------------+------------+
+| usn        | name       |
++------------+------------+
+| 4MH17CS113 | VARSHINI   |
+| 4MH17CS115 | VIDYASHREE |
+| 4MH17CS093 | SONALI     |
+| 4MH17CS118 | YUKTHA     |
+| 4MH17CS119 | YUKTHI     |
++------------+------------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from student where sec='c';
++------------+----------+------+------+
+| usn        | name     | sem  | sec  |
++------------+----------+------+------+
+| 4MH17CS113 | VARSHINI |    5 | C    |
+| 4MH17CS119 | YUKTHI   |    5 | C    |
++------------+----------+------+------+
+2 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from student where sec!='a';
++------------+----------+------+------+
+| usn        | name     | sem  | sec  |
++------------+----------+------+------+
+| 4MH17CS113 | VARSHINI |    5 | C    |
+| 4MH17CS093 | SONALI   |    5 | B    |
+| 4MH17CS118 | YUKTHA   |    5 | B    |
+| 4MH17CS119 | YUKTHI   |    5 | C    |
++------------+----------+------+------+
+4 rows in set (0.001 sec)
+
+MariaDB [practice]> select count(*) from student;
++----------+
+| count(*) |
++----------+
+|        5 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select count(*) from student where sec='a';
++----------+
+| count(*) |
++----------+
+|        1 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> update student
+    -> set sem=7 where
+    -> sec='B';
+Query OK, 2 rows affected (0.076 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+MariaDB [practice]> select * from student;
++------------+------------+------+------+
+| usn        | name       | sem  | sec  |
++------------+------------+------+------+
+| 4MH17CS113 | VARSHINI   |    5 | C    |
+| 4MH17CS115 | VIDYASHREE |    5 | A    |
+| 4MH17CS093 | SONALI     |    7 | B    |
+| 4MH17CS118 | YUKTHA     |    7 | B    |
+| 4MH17CS119 | YUKTHI     |    5 | C    |
++------------+------------+------+------+
+5 rows in set (0.000 sec)
+
+MariaDB [practice]> alter table student change sec
+    -> section char(5);
+Query OK, 5 rows affected (0.881 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> alter table student change sem
+    -> semester int;
+Query OK, 0 rows affected (0.035 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| usn      | varchar(10) | YES  |     | NULL    |       |
+| name     | varchar(20) | YES  |     | NULL    |       |
+| semester | int(11)     | YES  |     | NULL    |       |
+| section  | char(5)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.007 sec)
+
+MariaDB [practice]> alter table student add fee float;
+Query OK, 0 rows affected (0.340 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from student;
++------------+------------+----------+---------+------+
+| usn        | name       | semester | section | fee  |
++------------+------------+----------+---------+------+
+| 4MH17CS113 | VARSHINI   |        5 | C       | NULL |
+| 4MH17CS115 | VIDYASHREE |        5 | A       | NULL |
+| 4MH17CS093 | SONALI     |        7 | B       | NULL |
+| 4MH17CS118 | YUKTHA     |        7 | B       | NULL |
+| 4MH17CS119 | YUKTHI     |        5 | C       | NULL |
++------------+------------+----------+---------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> update student set fee = 50000;
+Query OK, 5 rows affected (0.382 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+MariaDB [practice]> select * from student;
++------------+------------+----------+---------+-------+
+| usn        | name       | semester | section | fee   |
++------------+------------+----------+---------+-------+
+| 4MH17CS113 | VARSHINI   |        5 | C       | 50000 |
+| 4MH17CS115 | VIDYASHREE |        5 | A       | 50000 |
+| 4MH17CS093 | SONALI     |        7 | B       | 50000 |
+| 4MH17CS118 | YUKTHA     |        7 | B       | 50000 |
+| 4MH17CS119 | YUKTHI     |        5 | C       | 50000 |
++------------+------------+----------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> update student set fee = 68000 where usn='4MH17CS119';
+Query OK, 1 row affected (0.028 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update student set fee = 56000 where usn='4MH17CS113';
+Query OK, 1 row affected (0.049 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> update student set fee = 67000 where name='VIDYASHREE';
+Query OK, 1 row affected (0.125 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [practice]> select * from student;
++------------+------------+----------+---------+-------+
+| usn        | name       | semester | section | fee   |
++------------+------------+----------+---------+-------+
+| 4MH17CS113 | VARSHINI   |        5 | C       | 56000 |
+| 4MH17CS115 | VIDYASHREE |        5 | A       | 67000 |
+| 4MH17CS093 | SONALI     |        7 | B       | 50000 |
+| 4MH17CS118 | YUKTHA     |        7 | B       | 50000 |
+| 4MH17CS119 | YUKTHI     |        5 | C       | 68000 |
++------------+------------+----------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select sum(fee) from student;
++----------+
+| sum(fee) |
++----------+
+|   291000 |
++----------+
+1 row in set (0.000 sec)
+
+MariaDB [practice]> select max(fee) from student;
++----------+
+| max(fee) |
++----------+
+|    68000 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select min(fee) from student;
++----------+
+| min(fee) |
++----------+
+|    50000 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select avg(fee) from student;
++----------+
+| avg(fee) |
++----------+
+|    58200 |
++----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select sum(fee),max(fee),min(fee),avg(fee) from student;
++----------+----------+----------+----------+
+| sum(fee) | max(fee) | min(fee) | avg(fee) |
++----------+----------+----------+----------+
+|   291000 |    68000 |    50000 |    58200 |
++----------+----------+----------+----------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select sum(fee) as sum_of_fee from student;
++------------+
+| sum_of_fee |
++------------+
+|     291000 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> select * from student order by name desc;
++------------+------------+----------+---------+-------+
+| usn        | name       | semester | section | fee   |
++------------+------------+----------+---------+-------+
+| 4MH17CS119 | YUKTHI     |        5 | C       | 68000 |
+| 4MH17CS118 | YUKTHA     |        7 | B       | 50000 |
+| 4MH17CS115 | VIDYASHREE |        5 | A       | 67000 |
+| 4MH17CS113 | VARSHINI   |        5 | C       | 56000 |
+| 4MH17CS093 | SONALI     |        7 | B       | 50000 |
++------------+------------+----------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> select * from student order by name asc;
++------------+------------+----------+---------+-------+
+| usn        | name       | semester | section | fee   |
++------------+------------+----------+---------+-------+
+| 4MH17CS093 | SONALI     |        7 | B       | 50000 |
+| 4MH17CS113 | VARSHINI   |        5 | C       | 56000 |
+| 4MH17CS115 | VIDYASHREE |        5 | A       | 67000 |
+| 4MH17CS118 | YUKTHA     |        7 | B       | 50000 |
+| 4MH17CS119 | YUKTHI     |        5 | C       | 68000 |
++------------+------------+----------+---------+-------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> alter table student drop fee;
+Query OK, 0 rows affected (0.606 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [practice]> select * from student;
++------------+------------+----------+---------+
+| usn        | name       | semester | section |
++------------+------------+----------+---------+
+| 4MH17CS113 | VARSHINI   |        5 | C       |
+| 4MH17CS115 | VIDYASHREE |        5 | A       |
+| 4MH17CS093 | SONALI     |        7 | B       |
+| 4MH17CS118 | YUKTHA     |        7 | B       |
+| 4MH17CS119 | YUKTHI     |        5 | C       |
++------------+------------+----------+---------+
+5 rows in set (0.001 sec)
+
+MariaDB [practice]> delete from student where section='B';
+Query OK, 2 rows affected (0.122 sec)
+
+MariaDB [practice]> select * from student;
++------------+------------+----------+---------+
+| usn        | name       | semester | section |
++------------+------------+----------+---------+
+| 4MH17CS113 | VARSHINI   |        5 | C       |
+| 4MH17CS115 | VIDYASHREE |        5 | A       |
+| 4MH17CS119 | YUKTHI     |        5 | C       |
++------------+------------+----------+---------+
+3 rows in set (0.001 sec)
+
+MariaDB [practice]> delete from student;
+Query OK, 3 rows affected (0.128 sec)
+
+MariaDB [practice]> select * from student;
+Empty set (0.001 sec)
+
+MariaDB [practice]> show tables;
++--------------------+
+| Tables_in_practice |
++--------------------+
+| student            |
++--------------------+
+1 row in set (0.001 sec)
+
+MariaDB [practice]> drop table student;
+Query OK, 0 rows affected (0.265 sec)
+
+MariaDB [practice]> show tables;
+Empty set (0.001 sec)
+
+MariaDB [practice]> select * from student;
+ERROR 1146 (42S02): Table 'practice.student' doesn't exist
